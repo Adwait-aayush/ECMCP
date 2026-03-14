@@ -1,0 +1,37 @@
+run:
+  timeout: 5m
+  modules-download-mode: readonly
+
+linters:
+  enable:
+    - errcheck
+    - govet
+    - gosimple
+    - ineffassign
+    - staticcheck
+    - typecheck
+    - unused
+    - gofmt
+    - goimports
+    - gocyclo
+    - dupl
+    - misspell
+    - revive
+
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
+    check-struct-tags: true
+  gocritic:
+    enabled-tags:
+      - performance
+      - style
+      - diagnostic
+      - opinionated
+      - experimental
+
+  revive:
+    rules:
+      - name: exported
+    
