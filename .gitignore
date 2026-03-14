@@ -1,0 +1,7 @@
+vendor/
+go.work
+.env
+bin/
+*.log
+*.exe
+*.test
