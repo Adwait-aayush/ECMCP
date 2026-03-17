@@ -14,7 +14,7 @@ type User struct {
 	LastName  string         `json:"last_name" gorm:"not null" validate:"required"`
 	Phone     string         `json:"phone"`
 	IsActive  bool           `gorm:"default:true" json:"is_active"`
-	Role      UserRole       `gorm:"type:enum('admin','user');default:'user'" json:"role"`
+	Role      UserRole       `gorm:"type:enum('admin','customer');default:'customer'" json:"role"`
 	CreatedAt time.Time      `json:"created_at"`
 	UpdatedAt time.Time      `json:"updated_at"`
 	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`

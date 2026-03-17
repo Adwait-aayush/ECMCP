@@ -23,17 +23,23 @@ run:
 dev:
 	go run ./cmd/api
 
-lint:
+lint: format
 	golangci-lint run ./...
 
 migrate-up:
-	migrate -path db/migrations -database "postgresql://postgres:password@localhost:5432/ECMCP?sslmode=disable" up
+	migrate -path db/migrations -database "postgresql://postgres:password@localhost:5432/ecmcp?sslmode=disable" up
 
 migrate-down:
-	migrate -path db/migrations -database "postgresql://postgres:password@localhost:5432/ECMCP?sslmode=disable" down
+	migrate -path db/migrations -database "postgresql://postgres:password@localhost:5432/ecmcp?sslmode=disable" down
 
 docker-up:
 	docker compose -f docker/docker-compose.yml up -d
 
 docker-down:
 	docker compose -f docker/docker-compose.yml down
+
+format:
+	@gofmt -s -w .
+
+docker-delete:
+	docker compose -f docker/docker-compose.yml down -v --rmi all --remove-orphans
