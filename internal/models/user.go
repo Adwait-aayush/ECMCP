@@ -9,7 +9,7 @@ import (
 type User struct {
 	ID        uint           `gorm:"primaryKey" json:"id"`
 	Email     string         `gorm:"unique;not null" json:"email" validate:"required,email"`
-	Password  string         `gorm:"not null" json:"-"`
+	PasswordHash  string         `gorm:"not null" json:"-"`
 	FirstName string         `json:"first_name" gorm:"not null" validate:"required"`
 	LastName  string         `json:"last_name" gorm:"not null" validate:"required"`
 	Phone     string         `json:"phone"`

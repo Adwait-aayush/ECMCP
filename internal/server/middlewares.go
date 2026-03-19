@@ -21,15 +21,15 @@ func (s *Server) authMiddleware() gin.HandlerFunc {
 			utils.UnauthorizedResponse(c, "Invalid authorization header format", nil)
 
 		}
-		claims,err:=utils.ValidateToken(tokenparts[1],s.config.JWT.Secret)
-		if err!=nil{
+		claims, err := utils.ValidateToken(tokenparts[1], s.config.JWT.Secret)
+		if err != nil {
 			utils.UnauthorizedResponse(c, "Invalid or expired token", nil)
 			c.Abort()
 			return
 		}
-		c.Set("user_id",claims.UserID)
-		c.Set("user_email",claims.Email)
-		c.Set("user_role",claims.Role)
+		c.Set("user_id", claims.UserID)
+		c.Set("user_email", claims.Email)
+		c.Set("user_role", claims.Role)
 		c.Next()
 	}
 }

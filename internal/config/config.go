@@ -31,8 +31,8 @@ type DatabaseConfig struct {
 
 type JWTConfig struct {
 	Secret           string
-	ExpiresIn        string
-	RefreshExpiresIn string
+	ExpiresIn        time.Duration
+	RefreshExpiresIn time.Duration
 }
 
 type AWSConfig struct {
@@ -79,8 +79,8 @@ func Load() (*Config, error) {
 		},
 		JWT: JWTConfig{
 			Secret:           getEnv("JWT_SECRET", "key"),
-			ExpiresIn:        jwtExpiresIn.String(),
-			RefreshExpiresIn: jwtRefreshExpiresIn.String(),
+			ExpiresIn:        jwtExpiresIn,
+			RefreshExpiresIn: jwtRefreshExpiresIn,
 		},
 		AWS: AWSConfig{
 			Region:          getEnv("AWS_REGION", "us-east-1"),

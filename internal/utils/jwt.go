@@ -15,14 +15,8 @@ type Claims struct {
 }
 
 func GenerateTokenPair(cfg *config.JWTConfig, userID uint, email string, role string) (accessToken, refreshToken string, err error) {
-	accessExpiresIn, err := time.ParseDuration(cfg.ExpiresIn)
-	if err != nil {
-		return "", "", err
-	}
-	refreshExpiresIn, err := time.ParseDuration(cfg.RefreshExpiresIn)
-	if err != nil {
-		return "", "", err
-	}
+	accessExpiresIn := cfg.ExpiresIn
+	refreshExpiresIn := cfg.RefreshExpiresIn
 
 	accessClaims := &Claims{
 		UserID: userID,
