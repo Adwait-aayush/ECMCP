@@ -35,12 +35,12 @@ func (s *AuthService) Register(reg *dto.RegisterRequest) (*dto.AuthResponse, err
 	}
 
 	user := models.User{
-		Email:     reg.Email,
-		PasswordHash:  hashedPassword,
-		FirstName: reg.FirstName,
-		LastName:  reg.LastName,
-		Phone:     reg.Phone,
-		Role:      models.UserRoleCustomer,
+		Email:        reg.Email,
+		PasswordHash: hashedPassword,
+		FirstName:    reg.FirstName,
+		LastName:     reg.LastName,
+		Phone:        reg.Phone,
+		Role:         models.UserRoleCustomer,
 	}
 	if err := s.db.Create(&user).Error; err != nil {
 		return nil, err
