@@ -14,6 +14,7 @@ import (
 	"github.com/Adwait-aayush/ECMCP/internal/database"
 	"github.com/Adwait-aayush/ECMCP/internal/logger"
 	"github.com/Adwait-aayush/ECMCP/internal/server"
+	"github.com/Adwait-aayush/ECMCP/internal/services"
 )
 
 func main() {
@@ -33,7 +34,10 @@ func main() {
 	defer mainDB.Close()
 	gin.SetMode(cfg.Server.GinMode)
 
-	srv := server.New(cfg, db, log)
+	authService:=services.NewAuthService(db,cfg)
+	productService:=services.NewProductService(db)
+	userService:=services.NewUserService(db)
+	srv := server.New(cfg, db, log,authService,productService,userService)
 	router := srv.SetupRoute()
 
 	httpServer := &http.Server{

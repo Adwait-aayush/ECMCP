@@ -2,7 +2,6 @@ package server
 
 import (
 	"github.com/Adwait-aayush/ECMCP/internal/dto"
-	"github.com/Adwait-aayush/ECMCP/internal/services"
 	"github.com/Adwait-aayush/ECMCP/internal/utils"
 	"github.com/gin-gonic/gin"
 )
@@ -13,8 +12,8 @@ func (s *Server) register(c *gin.Context) {
 		utils.BadRequestResponse(c, "Invalid request data", err)
 		return
 	}
-	authService := services.NewAuthService(s.db, s.config)
-	resp, err := authService.Register(&req)
+
+	resp, err := s.authService.Register(&req)
 	if err != nil {
 		utils.BadRequestResponse(c, "Failed to register user", err)
 		return
@@ -28,8 +27,7 @@ func (s *Server) login(c *gin.Context) {
 		utils.BadRequestResponse(c, "Invalid request data", err)
 		return
 	}
-	authService := services.NewAuthService(s.db, s.config)
-	resp, err := authService.Login(&req)
+	resp, err := s.authService.Login(&req)
 	if err != nil {
 		utils.BadRequestResponse(c, "Failed to login", err)
 		return
@@ -43,8 +41,8 @@ func (s *Server) refreshToken(c *gin.Context) {
 		utils.BadRequestResponse(c, "Invalid request data", err)
 		return
 	}
-	authService := services.NewAuthService(s.db, s.config)
-	resp, err := authService.RefreshToken(&req)
+
+	resp, err := s.authService.RefreshToken(&req)
 	if err != nil {
 		utils.BadRequestResponse(c, "Failed to refresh token", err)
 		return
@@ -58,8 +56,8 @@ func (s *Server) logout(c *gin.Context) {
 		utils.BadRequestResponse(c, "Invalid request data", err)
 		return
 	}
-	authService := services.NewAuthService(s.db, s.config)
-	if err := authService.Logout(req.RefreshToken); err != nil {
+
+	if err := s.authService.Logout(req.RefreshToken); err != nil {
 		utils.BadRequestResponse(c, "Failed to logout", err)
 		return
 	}
@@ -77,8 +75,8 @@ func (s *Server) getProfile(c *gin.Context) {
 		utils.BadRequestResponse(c, "Invalid user ID type", nil)
 		return
 	}
-	userService := services.NewUserService(s.db)
-	profile, err := userService.GetProfile(userID)
+
+	profile, err := s.userService.GetProfile(userID)
 	if err != nil {
 		utils.BadRequestResponse(c, "Failed to get profile", err)
 		return
@@ -102,8 +100,8 @@ func (s *Server) updateProfile(c *gin.Context) {
 		utils.BadRequestResponse(c, "Invalid request data", err)
 		return
 	}
-	userService := services.NewUserService(s.db)
-	profile, err := userService.UpdateProfile(userID, &req)
+
+	profile, err := s.userService.UpdateProfile(userID, &req)
 	if err != nil {
 		utils.BadRequestResponse(c, "Failed to update profile", err)
 		return
